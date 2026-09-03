@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://namster-cafe.vercel.app/sitemap.xml
+Sitemap: https://namster-cafe.nibe.dev/sitemap.xml

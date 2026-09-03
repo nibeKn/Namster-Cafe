@@ -1,64 +1,86 @@
-# Ñamster Café
+<h1 align="center">Ñamster Café</h1>
 
-Single-page site for a fictional themed coffee shop in Providencia, Santiago.
-Vue 3 with `<script setup>`, Vite, and hand-written CSS — no UI library, no
-styling framework.
+<p align="center">
+  A neighbourhood coffee shop's site, built to survive a technical review.
+</p>
 
-**Live demo:** https://namster-cafe.vercel.app
+![Ñamster Café home page](docs/screenshot-desktop.jpg)
 
-> Site copy is in Spanish (es-CL) because that is the venue's language. Code,
-> comments and documentation are in English.
+<p align="center">
+  <a href="https://namster-cafe.nibe.dev/"><strong>View live demo →</strong></a>
+</p>
 
-![Home page](docs/screenshot-desktop.jpg)
+<p align="center">
+  <img alt="Vue 3" src="https://img.shields.io/badge/Vue-3-42b883?logo=vue.js&logoColor=white">
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-8-646cff?logo=vite&logoColor=white">
+  <img alt="Vanilla CSS" src="https://img.shields.io/badge/CSS-vanilla-264de4">
+  <img alt="Cloudinary" src="https://img.shields.io/badge/Cloudinary-images-3448c5?logo=cloudinary&logoColor=white">
+  <img alt="MIT license" src="https://img.shields.io/badge/license-MIT-blue">
+</p>
 
-## What it does well
+> **Note:** the site's interface and content are in Spanish. This document, the
+> code and its comments are in English so the project is easy to review for
+> anyone.
 
-**Images.** The source photography is uncompressed PNG of up to 6 MB. Every
-image is requested through a Cloudinary transformation (`f_auto,q_auto` plus the
-exact width via `srcset`), so the browser negotiates AVIF or WebP and downloads
-only what it will paint. Full page weight after scrolling through everything:
-**925 KB**, down from ~37 MB. The hero image is preloaded from `<head>` using the
-same srcset the component renders, so it is never fetched twice.
+---
 
-**Accessibility.** Verified against the rendered page across widths from 320px to
-1920px: no text below the WCAG AA contrast minimum, no touch target under 24px, a
-skip link, `aria-current` on the active nav item, form errors announced with
-`role="alert"` and wired through `aria-describedby`, and every decorative
-animation — carousel auto-rotation included — disabled under
-`prefers-reduced-motion`.
+## What it is
 
-**No layout shift.** Images publish `width`/`height`, card media reserves its box
-with `aspect-ratio`, and the header height comes from the same token that feeds
-`scroll-padding-top`, so anchored headings always clear the fixed bar.
+A single-page site for a themed coffee shop in Providencia, Santiago: a menu, a
+shop, customer reviews, and a booking form for one of four seating areas.
 
-**Real form states.** Validation runs per field, errors appear on blur rather
-than mid-typing, submitting an invalid form moves focus to the first offending
-field, and the confirmation replaces the form instead of stacking under it.
+The interesting part is not the layout. It's the budget it holds itself to — the
+whole page weighs **925 KB** after scrolling through everything, on photography
+that ships as 37 MB of uncompressed PNG at the source. Every image is negotiated
+down to the exact variant the layout needs, and nothing on the page moves while
+it loads.
 
-![Booking section](docs/screenshot-reservation.jpg)
+**This is a portfolio project.** The venue, its address, prices and reviews are
+fictional. Forms validate and show submission states but there is no backend and
+no payment gateway.
 
-## Notable decisions
+## Features
 
-**Carousels use native scroll-snap, not `transform`.** The track is a plain
-`overflow-x: auto` container, so the browser supplies touch swiping with
-momentum, dragging, trackpad scrolling and correct RTL behaviour. JavaScript only
-reads the position to render the controls. See
-[`useCarousel.js`](src/composables/useCarousel.js) — the page-step maths there
-accounts for the gap count and the scroll-snap origin, both of which are easy to
-get subtly wrong.
+- **Right-sized images** — every image is requested through a Cloudinary
+  transformation (`f_auto,q_auto` plus the exact width via `srcset`), so the
+  browser negotiates AVIF or WebP and downloads only what it will paint. The hero
+  drops from 5,921 KB to 47 KB on a phone.
+- **No layout shift** — images publish `width`/`height`, card media reserves its
+  box with `aspect-ratio`, and the header height comes from the same token that
+  feeds `scroll-padding-top`, so anchored headings always clear the fixed bar.
+- **Carousels on native scroll-snap** — touch swiping with momentum, dragging and
+  trackpad scrolling all come from the browser; JavaScript only reads the position
+  to render the controls.
+- **Booking form with real states** — per-field validation, errors that appear on
+  blur rather than mid-typing, focus moved to the first invalid field on submit,
+  and a confirmation that replaces the form instead of stacking under it.
+- **Live opening status** — the hero and the contact section derive "open now" or
+  "opens tomorrow at 9:00" from the venue's hours, updated every minute.
+- **Deferred third parties** — the Google Maps embed is hundreds of kilobytes of
+  JavaScript and cookies in a section many visitors never reach, so a facade with
+  the address stands in until it is asked for.
+- **Accessibility that was measured, not assumed** — checked against the rendered
+  page from 320px to 1920px: no text below the WCAG AA contrast minimum, no touch
+  target under 24px, a skip link, `aria-current` on the active nav item, errors
+  announced with `role="alert"`, and every decorative animation disabled under
+  `prefers-reduced-motion`.
 
-**No icon library.** Sixteen glyphs do not justify a render-blocking webfont.
-[`AppIcon.vue`](src/components/ui/AppIcon.vue) holds the SVG paths and inherits
-`currentColor`.
+<img src="docs/screenshot-mobile.jpg" alt="Mobile home page" width="320">
 
-**The Google Maps embed loads on request.** It is hundreds of kilobytes of
-third-party JavaScript and cookies, in a section many visitors never reach, so a
-facade with the address and a direct Maps link stands in until it is asked for.
+## Stack
 
-**Sector cards are native radio inputs** under a `<label>`, which provides group
-semantics, arrow-key roving and "2 of 4 selected" announcements for free.
+| Tool                                          | Role                                             |
+| --------------------------------------------- | ------------------------------------------------ |
+| **Vue 3** (Composition API, `<script setup>`) | Components and state                             |
+| **Vite 8**                                    | Build and dev server                             |
+| **Plain CSS3**                                | Design tokens, layout, motion                    |
+| **Cloudinary**                                | On-the-fly image transformation and delivery     |
+| **ESLint + Prettier**                         | Linting and formatting (flat `eslint.config.js`) |
 
-## Structure
+No Tailwind, no Bootstrap, no component library, no icon font — every piece of
+the design is hand-written.
+
+## Architecture
 
 ```
 src/
@@ -69,7 +91,7 @@ src/
 ├── components/
 │   ├── layout/            AppHeader, AppFooter
 │   ├── sections/          One component per page section
-│   └── ui/                Reusable pieces (AppImage, AppCarousel, FormField…)
+│   └── ui/                AppImage, AppCarousel, FormField, cards…
 ├── composables/
 │   ├── useCarousel.js             Paging over scroll-snap
 │   ├── useForm.js                 State, validation, submission
@@ -81,13 +103,35 @@ src/
 └── lib/cloudinary.js      Transformation URL builder
 ```
 
-Components never declare literal colours or sizes; everything comes from the
-tokens. Content lives in `src/data/`, so editing the menu or the sectors does not
-mean touching templates.
+Three decisions worth calling out:
 
-<img src="docs/screenshot-mobile.jpg" alt="Mobile home page" width="320">
+**The carousels do not use `transform`.** The track is a plain `overflow-x: auto`
+container with `scroll-snap-type`, which hands swiping, dragging, keyboard
+scrolling and RTL behaviour to the browser for free. What JavaScript does own is
+the page-step arithmetic in [`useCarousel.js`](src/composables/useCarousel.js),
+and it is subtler than it looks: with `n` cards visible the viewport spans `n − 1`
+gaps but advancing a page crosses `n` of them, and scroll-snap aligns to the
+padding box, so a track at rest reports a non-zero `scrollLeft`. Miss either and
+the cards drift out of alignment one page at a time.
 
-## Getting started
+**Nothing is styled with a literal value.** Components read colours, spacing,
+shadows and easings from `_tokens.css`. That is what made it possible to lift the
+brand pink to a shade that clears WCAG AA on the warm canvas by editing one line,
+instead of hunting the old value through twenty files.
+
+**Content is separated from presentation.** The menu, the shop, the reviews, the
+seating areas and the business details all live in `src/data/`, so changing the
+carte or the opening hours never means touching a template. The address, phone
+and hours have exactly one definition, read by both the contact section and the
+footer.
+
+## Running the project
+
+Requires Node.js `^20.19.0` or `>=22.12.0` (what Vite 8 expects).
+
+```bash
+git clone https://github.com/nibeKn/namster-cafe.git
+```
 
 ```bash
 npm install
@@ -97,6 +141,8 @@ npm install
 npm run dev
 ```
 
+The dev server runs at `http://localhost:5173/`.
+
 | Script            | Purpose                         |
 | ----------------- | ------------------------------- |
 | `npm run dev`     | Development server              |
@@ -105,29 +151,27 @@ npm run dev
 | `npm run lint`    | ESLint, zero warnings tolerated |
 | `npm run format`  | Prettier across the project     |
 
-## Deploying
-
-The build output is static, so any static host works. Vite settings are the
-defaults: build command `npm run build`, output directory `dist`.
-
 `VITE_SITE_URL` in `.env` fills the canonical tag, the Open Graph meta and the
 structured data. It holds a public URL, not a secret, which is why it is
 committed. `public/robots.txt` and `public/sitemap.xml` are served verbatim by
 Vite and carry the URL literally, so update those two alongside it.
 
-## Known limitations
+## Disclaimer
 
-- Forms validate and show submission states but do not post anywhere. The single
-  place to wire a backend is the `onSubmit` handler passed to `useForm`.
-- `<input type="date">` renders in the browser's locale, not the document's, so
-  the placeholder shows `mm/dd/yyyy` on a US-configured browser.
-- `public/docs/menu.pdf` is 4.2 MB for one page and would be worth recompressing.
-- The site is a single document. Growing it to several routes would call for Vue
-  Router and per-view code splitting.
+A personal portfolio project. Non-commercial, and unconnected to any real
+business.
 
-## Credits
+- The venue, its address, phone number, prices, menu and customer reviews are
+  **fictional**. No payments are processed and no data is collected from anyone:
+  the forms validate and simulate a response, then discard what was typed.
+- The review portraits come from [Unsplash](https://unsplash.com) under their
+  license. The typefaces are Google Fonts.
+- If you hold rights to any of this material and would like it removed, please
+  open an issue on the repository.
 
-Venue photography and illustrations belong to the project. Review portraits from
-[Unsplash](https://unsplash.com). Typefaces
-[Fredoka](https://fonts.google.com/specimen/Fredoka) and
-[Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans).
+## License
+
+The **source code** is published under the [MIT license](LICENSE): you may use,
+modify and redistribute it while keeping the copyright notice and attribution.
+
+---
