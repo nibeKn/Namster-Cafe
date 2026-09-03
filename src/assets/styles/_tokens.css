@@ -1,0 +1,138 @@
+/* ==========================================================================
+   DESIGN TOKENS
+   Single source of truth for the visual system. Components never declare
+   literal colors, sizes or shadows — they consume these tokens.
+   ========================================================================== */
+
+:root {
+  /* Warm neutrals. Built on a single hue (~20°) so greys never clash with the
+     photography or with the brand pink. */
+  --surface-page: #fffbf8;
+  --surface-raised: #ffffff;
+  --surface-sunken: #fdf3ef;
+  --surface-blush: #fef6f8;
+  --surface-contrast: #221519;
+
+  /* Ink. `ink-500` is the lightest value allowed for text on `surface-page`
+     (4.6:1). Anything below it is decorative only. */
+  --ink-900: #2a1a20;
+  --ink-700: #513c43;
+  --ink-500: #745c63;
+  --ink-400: #9a848a;
+
+  /* Brand pink. `rose-600` is the only shade cleared for text on light
+     backgrounds (4.8:1 against `surface-page`). */
+  --rose-700: #a82656;
+  --rose-600: #c9346b;
+  --rose-500: #e04d84;
+  --rose-400: #f27ba6;
+  --rose-300: #f9aec8;
+  --rose-200: #fbccdc;
+  --rose-100: #fde8ef;
+  --rose-50: #fff5f8;
+
+  /* Caramel — secondary accent for the shop and wood tones. */
+  --caramel-700: #8a5f22;
+  --caramel-500: #c8913f;
+  --caramel-300: #e9c68a;
+  --caramel-200: #f3ddb8;
+  --caramel-100: #faf1e0;
+
+  /* Sage — success states. */
+  --sage-100: #e6f0e8;
+
+  /* Semantic roles */
+  --color-accent: var(--rose-600);
+  --color-text: var(--ink-700);
+  --color-heading: var(--ink-900);
+  --color-muted: var(--ink-500);
+  --color-border: #f4dfe6;
+  --color-border-strong: var(--rose-200);
+  --color-focus: var(--rose-600);
+
+  /* Gradients use three stops: the midpoint avoids the muddy band that appears
+     when interpolating straight from a light to a dark shade. */
+  --gradient-rose: linear-gradient(135deg, #f0699b 0%, #d93c78 55%, #b82a60 100%);
+  --gradient-caramel: linear-gradient(135deg, #dda85c 0%, #c8913f 55%, #a9762f 100%);
+  --gradient-blush: linear-gradient(160deg, #fff5f8 0%, #fdeaf1 100%);
+
+  /* Typography — Fredoka carries the brand voice in display type, Plus Jakarta
+     Sans handles body copy and UI. */
+  --font-display: 'Fredoka', 'Trebuchet MS', sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Large sizes scale with the viewport; small ones stay fixed to protect
+     legibility on phones. */
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.0625rem;
+  --text-lg: clamp(1.0625rem, 0.4vw + 0.97rem, 1.1875rem);
+  --text-xl: clamp(1.1875rem, 0.8vw + 1rem, 1.4375rem);
+  --text-3xl: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+  --text-display: clamp(3.25rem, 13vw, 9rem);
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.02em;
+  --tracking-wide: 0.06em;
+
+  /* Spacing — 4px scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* Section rhythm. Compresses on small screens without a media query. */
+  --section-gap: clamp(3.5rem, 7vw, 6.5rem);
+
+  /* Radii */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-pill: 999px;
+
+  /* Shadows are tinted with the ink brown. Neutral black casts a grey halo on
+     a warm canvas. */
+  --shadow-xs: 0 1px 2px rgba(42, 26, 32, 0.05);
+  --shadow-sm: 0 2px 8px -3px rgba(42, 26, 32, 0.1);
+  --shadow-md: 0 10px 26px -12px rgba(42, 26, 32, 0.18), 0 2px 6px -3px rgba(42, 26, 32, 0.07);
+  --shadow-lg: 0 22px 46px -18px rgba(42, 26, 32, 0.24), 0 4px 12px -6px rgba(42, 26, 32, 0.08);
+  --shadow-accent: 0 12px 26px -10px rgba(168, 38, 86, 0.5);
+
+  /* Motion. `ease-spring` overshoots slightly and is reserved for direct
+     responses to a click. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --duration-fast: 160ms;
+  --duration-base: 260ms;
+  --duration-slow: 520ms;
+
+  /* Layers */
+  --z-header: 200;
+  --z-skip-link: 500;
+
+  /* Layout. `--header-h` also feeds `scroll-padding-top`, which keeps anchored
+     headings clear of the fixed bar. */
+  --container-max: 76rem;
+  --container-pad: clamp(1rem, 4vw, 2.5rem);
+  --header-h: 4.25rem;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --header-h: 5.5rem;
+  }
+}

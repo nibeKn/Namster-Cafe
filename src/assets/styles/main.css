@@ -1,0 +1,6 @@
+/* Global stylesheet entry. Order matters: tokens must be defined before base
+   and components consume them. */
+
+@import './_tokens.css';
+@import './_base.css';
+@import './_components.css';

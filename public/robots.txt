@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://namster-cafe.vercel.app/sitemap.xml

@@ -1,0 +1,29 @@
+{
+  "name": "namster-cafe",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sitio de una página para una cafetería temática en Providencia, Santiago. Vue 3 + Vite, sin framework de estilos.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "vue": "^3.5.40"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.10.0",
+    "globals": "^17.11.0",
+    "prettier": "^3.9.6",
+    "vite": "^8.2.0"
+  }
+}
