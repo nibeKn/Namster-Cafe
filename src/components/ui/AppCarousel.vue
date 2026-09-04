@@ -153,6 +153,7 @@ const showDots = computed(() => pageCount.value <= MAX_DOTS)
 
 .carousel__viewport > :deep(*) {
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   min-width: 0;
 }
 
