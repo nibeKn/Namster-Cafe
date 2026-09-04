@@ -1,7 +1,7 @@
 <h1 align="center">Ñamster Café</h1>
 
 <p align="center">
-  A neighbourhood coffee shop's site, built to survive a technical review.
+  A neighbourhood coffee shop's site
 </p>
 
 ![Ñamster Café home page](docs/screenshot-desktop.jpg)
